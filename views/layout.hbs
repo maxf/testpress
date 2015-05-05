@@ -5,7 +5,11 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <p>User: {{username}} (<a href="/logout">logout</a>)</p>    
+    {{#if username}}
+    <p>User: {{username}} (<a href="/logout">logout</a>)</p>
+    {{else}}
+    <p><a href="/login">login</a></p>
+    {{/if}}
     {{{body}}}
   </body>
 </html>
