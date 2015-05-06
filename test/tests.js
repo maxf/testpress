@@ -1,5 +1,8 @@
+"use strict";
+
 var request = require('supertest');
 var app = require('../app.js');
+
 
 describe("log-in, then log-out", function () {
 
@@ -10,7 +13,7 @@ describe("log-in, then log-out", function () {
       .expect(200)
       .expect(/Login/)
       .end(function(err, res){
-        if (err) throw err;
+        if (err) { throw err; }
         done();
       });
   });
@@ -22,7 +25,7 @@ describe("log-in, then log-out", function () {
       .expect(302)
       .expect('Location', '/dashboard')
       .end(function(err, res){
-        if (err) throw err;
+        if (err) { throw err; }
         done();
       });
   });
