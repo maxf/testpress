@@ -1,15 +1,33 @@
+"use strict";
+
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 
+
+/*
+ * build the context object which will be passed to all views
+ * the object is initialised with the default fields, common
+ * to all pages
+ * @req: request as passed to the controller
+ * @title: page title
+ */
+var context = function(req, title) {
+  var contextObj = {title:title};
+  if (req.user) {
+    contextObj.username = req.user.username;
+  }
+  return contextObj;
+};
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'TICmbay' });
+  res.render('index', context(req, 'TICmbay'));
 });
 
-
 router.get('/login', function(req, res, next) {
-  res.render('login', { title: 'Login' });
+  res.render('login', context(req, 'Login' ));
 });
 
 router.get('/logout', function(req, res){
@@ -27,12 +45,7 @@ router.post('/send-login',
 
 
 router.get('/dashboard', function(req, res, next) {
-  console.log(req.user);
-  var context = {};
-  if (req.user) {
-    context.username = req.user.username;
-  }
-  res.render('dashboard', context);
+  res.render('dashboard', context(req, 'Dashboard'));
 });
 
 
