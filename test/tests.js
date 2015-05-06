@@ -23,8 +23,9 @@ describe("log-in, then log-out", function () {
     server
       .post('/send-login')
       .send({username: 'testuser', password: 'pass'})
-      .expect(302)
-      .expect('Location', '/dashboard')
+      .redirects(1)
+      .expect(200)
+      .expect(/Dashboard/)
       .end(function(err, res){
         if (err) { throw err; }
         done();
@@ -34,6 +35,7 @@ describe("log-in, then log-out", function () {
   it('shows that the user is logged in', function (done) {
     server
       .get('/dashboard')
+      .expect(200)
       .expect(/testuser/)
       .end(function(err, res){
         if (err) { throw err; }
@@ -41,4 +43,15 @@ describe("log-in, then log-out", function () {
       });
   });
 
+  it('correctly logs out', function (done) {
+    server
+      .get('/logout')
+      .redirects(1)
+      .expect(200)
+      .expect(/login/)
+      .end(function(err, res){
+        if (err) { throw err; }
+        done();
+      });
+  });
 });
