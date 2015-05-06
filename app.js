@@ -15,7 +15,6 @@ var users = require('./routes/users');
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
-    console.log("authenticating user");
     var user = {username:username}; // valid user from the API
 
     if (user) {
@@ -27,12 +26,10 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser(function(user, done) {
-  console.log('serializeUser');
   done(null, user);
 });
 
 passport.deserializeUser(function(user, done) {
-  console.log('deserializeUser');
   done(null, user);
 });
 
